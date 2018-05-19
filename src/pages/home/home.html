@@ -1,13 +1,13 @@
 
 <ion-header>
     <ion-navbar color="primary">
+        <img alt="logo" height="40"   src="assets/imgs/logo.png" > 
       <ion-title>
-          <img alt="logo" height="40"   src="assets/imgs/logo.png" > 
           Step Counter
         </ion-title>
       <ion-buttons right>
           <button ion-button clear (click)="logout()">
-              <ion-icon name="log-out"></ion-icon>
+              <ion-icon name="power"></ion-icon>
             </button>
       </ion-buttons>
     </ion-navbar>
@@ -20,13 +20,13 @@
           <round-progress
           [current]=steps
           [max]=goal
-          [color]="'#45ccce'"
+          [color]="'#FF4500'"
           [background]="'#eaeaea'"
-          [radius]="125"
-          [stroke]="20"
+          [radius]="100"
+          [stroke]="30"
           [rounded]="true"
           [clockwise]="true"
-          [responsive]="false"
+          [responsive]="true"
           [duration]="800"
           [animation]="'easeInOutQuart'"
           [animationDelay]="0">{{steps}}</round-progress>

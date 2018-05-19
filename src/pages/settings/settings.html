@@ -6,25 +6,33 @@
 -->
 <ion-header>
     <ion-navbar color="primary">
-      <ion-title>Walkit - Settings</ion-title>
+        <img alt="logo" height="40"   src="assets/imgs/logo.png" > 
+      <ion-title>
+          Settings
+        </ion-title>
       <ion-buttons right>
           <button ion-button clear (click)="logout()">
-              <ion-icon name="log-out"></ion-icon>
+              <ion-icon name="power"></ion-icon>
             </button>
       </ion-buttons>
     </ion-navbar>
   </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-label floating>Step Goal</ion-label>
-      <ion-input type="number" [(ngModel)]="goal"></ion-input>
-    </ion-item>
-  </ion-list>
-  <div padding>
-    <button ion-button block (tap)="update()">Update</button>
-  </div>
+    <ion-card>
+        <ion-item>
+          <ion-icon name="pulse" item-start large></ion-icon>
+          <h2>Recommended Treshold by HCP</h2>
+          <p>{{goal}}</p>
+        </ion-item>
+      </ion-card>
+      <ion-card>
+        <ion-item>
+          <ion-icon name="cash" item-left large ></ion-icon>
+          <h2>Available tokens</h2>
+          <p>0</p>
+        </ion-item>
+      </ion-card>
 </ion-content>
 
 

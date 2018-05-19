@@ -1,4 +1,4 @@
-page-settings {
+page-rewards {
     ion-title {
         position: absolute;
         top: 0;
@@ -8,4 +8,16 @@ page-settings {
         height: 100%;
         text-align: center;
       }
+
+      .ios, .md {
+ 
+        page-home {
+     
+            button {
+                align-items: baseline;
+            }
+     
+        }
+     
+    }
 }
