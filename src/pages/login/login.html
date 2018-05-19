@@ -1,5 +1,7 @@
 <ion-content padding>
-  <h2>Please, Login</h2>
+  <div text-center>
+    <img src="assets/imgs/walkit_logo.png" width="512" />
+  </div>
   <form (submit)="doLogin()">
     <ion-item>
       <ion-label stacked>Username</ion-label>
@@ -13,8 +15,4 @@
       Login
     </button>
   </form>
-
-  <button ion-button block clear (click)="register()">
-    No have an account? Register Now
-  </button>
 </ion-content>

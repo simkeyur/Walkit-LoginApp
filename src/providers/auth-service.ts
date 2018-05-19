@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { LoginPage } from '../pages/login/login';
 
-let apiUrl = 'http://localhost:1337/localhost:8080/api/';
+let apiUrl = 'https://walkitwebq5ddfwc2xgwvc.azurewebsites.net/Api/';
 
 @Injectable()
 export class AuthService {
@@ -13,24 +14,8 @@ export class AuthService {
     return new Promise((resolve, reject) => {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        resolve("true");
-        /*
-        this.http.post(apiUrl+'login', JSON.stringify(credentials), {headers: headers})
-          .subscribe(res => {
-            resolve(res.json());
-          }, (err) => {
-            reject(err);
-          });
-          */
-    });
-  }
 
-  register(data) {
-    return new Promise((resolve, reject) => {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
-        this.http.post(apiUrl+'guest/signup', JSON.stringify(data), {headers: headers})
+        this.http.get(apiUrl+'login', {headers: headers})
           .subscribe(res => {
             resolve(res.json());
           }, (err) => {
@@ -43,15 +28,12 @@ export class AuthService {
     return new Promise((resolve, reject) => {
         let headers = new Headers();
         headers.append('X-Auth-Token', localStorage.getItem('token'));
-        localStorage.clear();
-        /*
-        this.http.post(apiUrl+'logout', {}, {headers: headers})
-          .subscribe(res => {
+        this.http.get(apiUrl+'Signout',{headers: headers})
+          .subscribe(res => { 
             localStorage.clear();
           }, (err) => {
             reject(err);
           });
-          */
     });
   }
 

@@ -1,3 +1,16 @@
 page-home {
 
+    .progress {
+        position: absolute;
+        color: #bbb;
+        font-weight: 100;
+        line-height: 1;
+      }
+      .progress-wrapper {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        margin: 20px;
+        font-size: 40px;
+      }
 }

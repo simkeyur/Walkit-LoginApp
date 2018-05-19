@@ -5,12 +5,15 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>settings</ion-title>
-  </ion-navbar>
-
-</ion-header>
+    <ion-navbar color="primary">
+      <ion-title>Walkit - Settings</ion-title>
+      <ion-buttons right>
+          <button ion-button clear (click)="logout()">
+              <ion-icon name="log-out"></ion-icon>
+            </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
 
 <ion-content>
   <ion-list>

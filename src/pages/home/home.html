@@ -1,23 +1,50 @@
+
 <ion-header>
-  <ion-navbar>
-    <button ion-button clear (click)="logout()">
-      <ion-icon name="log-out"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
+    <ion-navbar color="primary">
+      <ion-title>
+          <img alt="logo" height="40"   src="assets/imgs/logo.png" > 
+          Step Counter
+        </ion-title>
+      <ion-buttons right>
+          <button ion-button clear (click)="logout()">
+              <ion-icon name="log-out"></ion-icon>
+            </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
 
 <ion-content padding>
+  <ion-card text-center>
+    <div text-center>
+      <ion-item > 
+          <round-progress
+          [current]=steps
+          [max]=goal
+          [color]="'#45ccce'"
+          [background]="'#eaeaea'"
+          [radius]="125"
+          [stroke]="20"
+          [rounded]="true"
+          [clockwise]="true"
+          [responsive]="false"
+          [duration]="800"
+          [animation]="'easeInOutQuart'"
+          [animationDelay]="0">{{steps}}</round-progress>
+      </ion-item>
+    </div>
+  </ion-card>
   <ion-card>
     <ion-item>
       <ion-icon name="walk" item-start large></ion-icon>
       <h2>Step Count</h2>
       <p>{{steps}}</p>
     </ion-item>
+  </ion-card>
+  <ion-card>
     <ion-item>
       <ion-icon name="trophy" item-left large ></ion-icon>
       <h2>Progress Towards Goal</h2>
-      <p>Goal: {{goal}} Steps / {{percentage.toFixed(1)}} %</p>
+      <p>Goal: {{goal}} Steps / {{percentage}} %</p>
     </ion-item>
   </ion-card>
 </ion-content>
