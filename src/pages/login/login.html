@@ -3,14 +3,16 @@
     <img src="assets/imgs/walkit_logo.png" width="512" />
   </div>
   <form (submit)="doLogin()">
-    <ion-item>
-      <ion-label stacked>Username</ion-label>
-      <ion-input [(ngModel)]="loginData.username" name="username" type="text" placeholder="Username" ></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Password</ion-label>
-      <ion-input [(ngModel)]="loginData.password" name="password" type="password" placeholder="Password"></ion-input>
-    </ion-item>
+    <ion-card>
+      <ion-item>
+        <ion-label stacked>Username</ion-label>
+        <ion-input [(ngModel)]="loginData.username" name="username" type="text" placeholder="Username" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Password</ion-label>
+        <ion-input [(ngModel)]="loginData.password" name="password" type="password" placeholder="Password"></ion-input>
+      </ion-item>
+    </ion-card>
     <button ion-button block type="submit">
       Login
     </button>

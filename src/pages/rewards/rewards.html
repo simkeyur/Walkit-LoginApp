@@ -17,27 +17,22 @@
       </ion-buttons>
     </ion-navbar>
   </ion-header>
-
-  <ion-content>
-
+    
+    <ion-content>
+    
       <ion-list>
-      <button detail-none (click)="expandItem(item)" ion-item *ngFor="let item of items">
-        <h4>Reward Name <ion-icon name="eye"></ion-icon> </h4>
-        <p>Reward Type • Expiry Date</p>
-        <expandable [expandHeight]="itemExpandHeight" [expanded]="item.expanded">
-            <ion-card>
-                <ion-item>
-                  <ion-icon name="trophy" item-left large ></ion-icon>
-                  <h2>Reward Details</h2>
-                  <p>Tokens Required : 20</p>
-                  <button ion-button primary item-end>Redeem</button>
-                </ion-item>
-              </ion-card>
-
-        </expandable>
-      </button>
-    </ion-list>
-   
- 
+        <ion-list-header>
+          Hobbits
+        </ion-list-header>
+        <a ion-item (click)="openModal({charNum: 0})">
+          Gollum
+        </a>
+        <a ion-item (click)="openModal({charNum: 1})">
+          Frodo Baggins
+        </a>
+        <a ion-item (click)="openModal({charNum: 2})">
+          Sam
+        </a>
+      </ion-list>
+    
     </ion-content>
-  

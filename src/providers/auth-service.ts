@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { ToastController } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 
 let apiUrl = 'https://walkitwebq5ddfwc2xgwvc.azurewebsites.net/Api/';
@@ -8,16 +9,25 @@ let apiUrl = 'https://walkitwebq5ddfwc2xgwvc.azurewebsites.net/Api/';
 @Injectable()
 export class AuthService {
 
-  constructor(public http: Http) {}
+  constructor(public http: Http, public toastCtrl: ToastController) {}
 
   login(credentials) {
     return new Promise((resolve, reject) => {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        this.http.get(apiUrl+'login', {headers: headers})
+        this.http.get(apiUrl+'login?username=' + credentials.username +'&password=' + credentials.password, {headers: headers})
           .subscribe(res => {
-            resolve(res.json());
+            var response = res.json() ;
+            if(response.success == false){
+              //this.presentToast(JSON.stringify(response.message));
+              reject(response.message);
+            }else{
+              this.presentToast(JSON.stringify(response.message));
+              resolve(res.json());
+            }
+            //resolve(res.json());
+
           }, (err) => {
             reject(err);
           });
@@ -30,11 +40,30 @@ export class AuthService {
         headers.append('X-Auth-Token', localStorage.getItem('token'));
         this.http.get(apiUrl+'Signout',{headers: headers})
           .subscribe(res => { 
-            localStorage.clear();
+            var response = res.json() ;
+            if(response.success == false){
+              this.presentToast(JSON.stringify(response.message));
+              reject(response.message);
+            }else{
+              this.presentToast(JSON.stringify(response.message));
+              localStorage.clear();
+            }
+            
           }, (err) => {
             reject(err);
           });
     });
   }
+
+  presentToast(toast_message) {
+    let toast = this.toastCtrl.create({
+      message: toast_message,
+      duration: 3000,
+      position: 'top',
+      showCloseButton: true
+    });
+    toast.present();
+  }
+
 
 }
