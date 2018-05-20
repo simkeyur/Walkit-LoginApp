@@ -7,6 +7,7 @@ import { LoginPage } from '../login/login';
 
 import { SettingsProvider } from '../../providers/settings/settings';
 import { SettingsPage } from '../settings/settings';
+import { RewardsPage } from '../rewards/rewards';
 
 @Component({
   selector: 'page-home',
@@ -36,12 +37,14 @@ export class HomePage {
   }
 
   logout() {
-    this.authService.logout().then((result) => {
+    this.authService.doLogout().then((result) => {
       this.loading.dismiss();
       let nav = this.app.getRootNav();
-      nav.setRoot(LoginPage);
+      nav.setRoot(RewardsPage);
     }, (err) => {
       this.loading.dismiss();
+      let nav = this.app.getRootNav();
+      nav.setRoot(RewardsPage);
       this.presentToast(err);
     });
   }

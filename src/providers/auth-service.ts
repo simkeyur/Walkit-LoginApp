@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { ToastController } from 'ionic-angular';
+import { ToastController, App } from 'ionic-angular';
 import { LoginPage } from '../pages/login/login';
 
 let apiUrl = 'https://walkitwebq5ddfwc2xgwvc.azurewebsites.net/Api/';
@@ -9,7 +9,7 @@ let apiUrl = 'https://walkitwebq5ddfwc2xgwvc.azurewebsites.net/Api/';
 @Injectable()
 export class AuthService {
 
-  constructor(public http: Http, public toastCtrl: ToastController) {}
+  constructor(public http: Http, public toastCtrl: ToastController, public app: App) {}
 
   login(credentials) {
     return new Promise((resolve, reject) => {
@@ -23,10 +23,12 @@ export class AuthService {
               //this.presentToast(JSON.stringify(response.message));
               reject(response.message);
             }else{
+              localStorage.setItem("patientFirstName", response.person.FirstName);
+              localStorage.setItem("patientLastName", response.person.LastName);
+              localStorage.setItem("patientID", JSON.stringify(response.user.Id));
               this.presentToast(JSON.stringify(response.message));
               resolve(res.json());
             }
-            //resolve(res.json());
 
           }, (err) => {
             reject(err);
@@ -34,7 +36,7 @@ export class AuthService {
     });
   }
 
-  logout(){
+  doLogout(){
     return new Promise((resolve, reject) => {
         let headers = new Headers();
         headers.append('X-Auth-Token', localStorage.getItem('token'));
@@ -47,6 +49,7 @@ export class AuthService {
             }else{
               this.presentToast(JSON.stringify(response.message));
               localStorage.clear();
+              resolve(res.json());
             }
             
           }, (err) => {
