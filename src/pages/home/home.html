@@ -19,7 +19,7 @@
       <ion-item > 
           <round-progress
           [current]=steps
-          [max]=goal
+          [max]=CurrGoal
           [color]="'#FF4500'"
           [background]="'#eaeaea'"
           [radius]="100"
@@ -44,7 +44,7 @@
     <ion-item>
       <ion-icon name="trophy" item-left large ></ion-icon>
       <h2>Progress Towards Goal</h2>
-      <p>Goal: {{goal}} Steps / {{percentage}} %</p>
+      <p>Goal: {{CurrGoal}} Steps / {{percentage}} %</p>
     </ion-item>
   </ion-card>
 </ion-content>

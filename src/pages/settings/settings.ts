@@ -9,9 +9,11 @@ import { LoginPage } from '../login/login';
   selector: 'page-settings',
   templateUrl: 'settings.html',
 })
-export class SettingsPage {
+export class SettingsPage implements OnInit {
   goal: number;
+  tokens: number;
   loading: any;
+  data: any;
   isLoggedIn: boolean = false;
   patientID = localStorage.getItem("patientID");
   patientFirstName = localStorage.getItem("patientFirstName");
@@ -21,6 +23,32 @@ export class SettingsPage {
     this.goal = this.settings.getGoal();
   }
  
+  public refreshTokens() {
+    this.settings.getPatientTokens().then((result) => {
+      this.data = JSON.stringify(result);
+      this.tokens= parseInt(this.data) || 0;
+    }, (err) => {
+      this.presentToast(err);
+    });
+  }
+
+  ngOnInit() {
+
+    this.settings.getPatientGoal().then((result) => {
+      this.data = JSON.stringify(result);
+      this.goal = parseInt(this.data) || 100;
+    }, (err) => {
+      this.presentToast(err);
+    });
+
+    this.settings.getPatientTokens().then((result) => {
+      this.data = JSON.stringify(result);
+      this.tokens= parseInt(this.data) || 0;
+    }, (err) => {
+      this.presentToast(err);
+    });
+  }
+
   update() {
     let value = Math.trunc(this.goal);
     this.viewCtrl.dismiss(true);

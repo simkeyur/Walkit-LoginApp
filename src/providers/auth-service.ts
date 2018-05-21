@@ -26,7 +26,7 @@ export class AuthService {
               localStorage.setItem("patientFirstName", response.person.FirstName);
               localStorage.setItem("patientLastName", response.person.LastName);
               localStorage.setItem("patientID", JSON.stringify(response.user.Id));
-              this.presentToast(JSON.stringify(response.message));
+              //this.presentToast(JSON.stringify(response.message));
               resolve(res.json());
             }
 

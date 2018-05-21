@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.walkit.walkitapp" version="0.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.walkit.walkitapp" version="0.1.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Walkit</name>
     <description>Health Tracker App.</description>
     <author email="simkeyur@gmail.com" href="http://simkeyur.com/">Ionic Framework Team</author>
@@ -86,5 +86,7 @@
     <allow-navigation href="http://192.168.0.24:8100" />
     <allow-navigation href="http://192.168.56.1:8100" />
     <allow-navigation href="http://10.224.56.213:8100" />
+    <allow-navigation href="http://192.168.169.230:8100" />
+    <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
     <engine name="android" spec="7.0.0" />
 </widget>

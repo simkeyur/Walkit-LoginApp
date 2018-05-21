@@ -12,14 +12,14 @@
         </ion-title>
       <ion-buttons right>
           <button ion-button clear (click)="logout()">
-              <ion-icon name="power"></ion-icon>
+              <ion-icon name="power" large></ion-icon>
             </button>
       </ion-buttons>
     </ion-navbar>
   </ion-header>
 
 <ion-content>
-  Welcome, {{patientFirstName}}
+  <h1>Welcome, {{patientFirstName}}</h1>
     <ion-card>
         <ion-item>
           <ion-icon name="pulse" item-start large></ion-icon>
@@ -31,7 +31,11 @@
         <ion-item>
           <ion-icon name="cash" item-left large ></ion-icon>
           <h2>Available tokens</h2>
-          <p>{{goal}}</p>
+          <p>{{tokens}}</p>
+          <button ion-button clear item-right (click)="refreshTokens()">
+            <ion-icon name="refresh" large></ion-icon>
+          </button>
+          
         </ion-item>
       </ion-card>
 </ion-content>

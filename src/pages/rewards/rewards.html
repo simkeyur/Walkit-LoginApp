@@ -4,6 +4,18 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
+<style>
+   ion-title {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0 90px 1px;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+      }
+</style>
 <ion-header>
     <ion-navbar color="primary">
         <img alt="logo" height="40"   src="assets/imgs/logo.png" > 
@@ -12,27 +24,22 @@
         </ion-title>
       <ion-buttons right>
           <button ion-button clear (click)="logout()">
-              <ion-icon name="power"></ion-icon>
+              <ion-icon name="power" large></ion-icon>
             </button>
       </ion-buttons>
     </ion-navbar>
   </ion-header>
     
-    <ion-content>
-    
-      <ion-list>
-        <ion-list-header>
-          Hobbits
-        </ion-list-header>
-        <a ion-item (click)="openModal({charNum: 0})">
-          Gollum
-        </a>
-        <a ion-item (click)="openModal({charNum: 1})">
-          Frodo Baggins
-        </a>
-        <a ion-item (click)="openModal({charNum: 2})">
-          Sam
-        </a>
-      </ion-list>
-    
-    </ion-content>
+<ion-content>
+<h2> Available Rewards</h2>
+<ion-card>
+    <ion-list>
+      <a ion-item *ngFor='let content of promoList' (click)="openModal(content.Id)" style="font-weight: bold">
+        {{content.Title}}
+        <ion-icon name="eye" item-right large ></ion-icon>
+        <p>End Date: {{content.PromotionEndDate}}</p>
+      </a>
+    </ion-list>
+  </ion-card>
+
+</ion-content>

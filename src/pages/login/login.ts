@@ -21,8 +21,6 @@ export class LoginPage {
     this.authService.login(this.loginData).then((result) => {
       this.loading.dismiss();
       this.data = result;
-      this.settings.getPatientGoal(); //Getting Latest patient Goal
-      this.settings.getPatientTokens(); //Getting Latest patient Tokens
       localStorage.setItem('token', this.data.access_token);
       this.navCtrl.setRoot(TabsPage);
     }, (err) => {

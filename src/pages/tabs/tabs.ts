@@ -4,7 +4,7 @@ import { HomePage } from '../home/home';
 import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
 import { LoginPage } from '../login/login';
-import { RewardsPage } from '../rewards/rewards';
+import { BasicPage as RewardsPage, ModalContentPage } from '../rewards/pages';
 import { SettingsPage } from '../settings/settings';
 
 @Component({
