@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewController } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service';
-import { NavController, App, LoadingController, ToastController } from 'ionic-angular';
+import { ViewController, ModalController, NavController, App, Platform, NavParams, LoadingController, ToastController, List } from 'ionic-angular';
 import { SettingsProvider } from '../../providers/settings/settings';
 import { LoginPage } from '../login/login';
  
@@ -14,14 +13,25 @@ export class SettingsPage implements OnInit {
   tokens: number;
   loading: any;
   data: any;
-  isLoggedIn: boolean = false;
+  redemeedList: () => List;
+  createdCode = "keyurpatel";
   patientID = localStorage.getItem("patientID");
   patientFirstName = localStorage.getItem("patientFirstName");
   patientLastName = localStorage.getItem("patientLastName");
  
-  constructor(public viewCtrl: ViewController,  public app: App, public navCtrl: NavController, public authService: AuthService, public loadingCtrl: LoadingController, private toastCtrl: ToastController, public settings: SettingsProvider) {
+  constructor(
+    public viewCtrl: ViewController,  
+    public app: App, 
+    public navCtrl: NavController, 
+    public authService: AuthService, 
+    public loadingCtrl: LoadingController, 
+    private toastCtrl: ToastController, 
+    public settings: SettingsProvider,
+    public modalCtrl: ModalController) 
+    {
     this.goal = this.settings.getGoal();
-  }
+    
+    }
  
   public refreshTokens() {
     this.settings.getPatientTokens().then((result) => {
@@ -30,6 +40,16 @@ export class SettingsPage implements OnInit {
     }, (err) => {
       this.presentToast(err);
     });
+  }
+
+  createCode() {
+    this.createdCode = "Keyur";
+  }
+
+
+  public openQRCode(rewardID) {
+    let modalRedeem = this.modalCtrl.create(SettingsModalPage, {data: this.redemeedList, redeemID: rewardID});
+    modalRedeem.present();
   }
 
   ngOnInit() {
@@ -47,11 +67,13 @@ export class SettingsPage implements OnInit {
     }, (err) => {
       this.presentToast(err);
     });
-  }
 
-  update() {
-    let value = Math.trunc(this.goal);
-    this.viewCtrl.dismiss(true);
+    this.settings.GetRedeemedRewards().then((result) => {
+      this.data = result;
+      this.redemeedList = JSON.parse(this.data);
+    }, (err) => {
+      this.presentToast(err);
+    });
   }
 
   logout() {
@@ -67,22 +89,87 @@ export class SettingsPage implements OnInit {
     });
   }
 
-  presentToast(msg) {
+  presentToast(toast_message) {
     let toast = this.toastCtrl.create({
-      message: msg,
+      message: toast_message,
       duration: 3000,
-      position: 'bottom',
-      dismissOnPageChange: true
+      position: 'top',
+      showCloseButton: true
     });
-
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-
     toast.present();
   }
 
  
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+}
+
+
+@Component({
+  template: `
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Reward Details
+    </ion-title>
+    <ion-buttons start>
+      <button primary ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows" large></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+      <ion-item>
+        <h2>{{RewardDetail.PromotionName}}</h2>
+        <p>{{RewardDetail.PromotionDescription}}</p>
+      </ion-item>
+      <h5>Scan this QR Code for redemption</h5>
+      <ion-card>
+          <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
+          <ion-card-content>
+            <p>Value: {{ createdCode }}</p>
+          </ion-card-content>
+        </ion-card>
+  </ion-list>
+  
+</ion-content>
+`
+})
+export class SettingsModalPage {
+  RewardDetail;
+  data: any;
+  createdCode;
+
+  constructor(
+    public platform: Platform,
+    public params: NavParams,
+    public viewCtrl: ViewController,
+    private toastCtrl: ToastController,
+    public settings: SettingsProvider
+  ) {
+    var rewarddetails = params.get('data');
+    var redeemID = params.get('redeemID');
+    this.RewardDetail = rewarddetails.find(item => item.Id === redeemID);
+    this.createdCode = this.RewardDetail.Hash;
+  }
+
+  presentToast(toast_message) {
+    let toast = this.toastCtrl.create({
+      message: toast_message,
+      duration: 3000,
+      position: 'top',
+      showCloseButton: true
+    });
+    toast.present();
+  }
+
+  
+
+
   dismiss() {
     this.viewCtrl.dismiss();
   }

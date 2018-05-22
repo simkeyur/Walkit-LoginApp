@@ -40,7 +40,7 @@ export class SettingsProvider {
             var response = res.json() ;
             if(response.currentRecommendation == null){
               //this.presentToast(JSON.stringify(response.message));
-              reject(response.message);
+              reject("You do not have any Recommendation!");
             }else{
               this.goal = response.currentRecommendation.MinSteps;
               localStorage.setItem("CurrentRecommendationID", JSON.stringify(response.currentRecommendation.Id));
@@ -96,6 +96,28 @@ export class SettingsProvider {
           .subscribe(res => {
             var response = res.json();
             resolve(res.json());
+          }, (err) => {
+            reject(err);
+          });
+    });
+  }
+
+  GetRedeemedRewards() {
+    return new Promise((resolve, reject) => {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let patientID = localStorage.getItem("patientID");
+        this.http.get(apiUrl+'GetPatientRedemptionHashes?patientId=' + patientID, {headers: headers})
+          .subscribe(res => {
+            var response = res.json();
+            if(response.list == null){
+              reject(response.message);
+            }else{
+              this.promotionList = response.list;
+              //localStorage.setItem("CurrentPromotionList", JSON.stringify(response.list));
+              //this.presentToast(JSON.stringify(response.list));
+              resolve(JSON.stringify(this.promotionList));
+            }
           }, (err) => {
             reject(err);
           });

@@ -11,9 +11,11 @@
           Settings
         </ion-title>
       <ion-buttons right>
+          <!--
           <button ion-button clear (click)="logout()">
-              <ion-icon name="power" large></ion-icon>
+              <ion-icon name="power"></ion-icon>
             </button>
+            -->
       </ion-buttons>
     </ion-navbar>
   </ion-header>
@@ -21,7 +23,7 @@
 <ion-content>
   <h1>Welcome, {{patientFirstName}}</h1>
     <ion-card>
-        <ion-item>
+        <ion-item (click)="myFunc();">
           <ion-icon name="pulse" item-start large></ion-icon>
           <h2>Your current Recommendation</h2>
           <p>{{goal}}</p>
@@ -38,9 +40,15 @@
           
         </ion-item>
       </ion-card>
-</ion-content>
-
-
-<ion-content padding>
-
+      
+      <h2> Redeemed Rewards</h2>
+      <ion-card>
+          <ion-list>
+            <a ion-item *ngFor='let content of redemeedList' (click)="openQRCode(content.Id)">
+              {{content.PromotionName}}
+              <ion-icon name="barcode" item-right large ></ion-icon>
+              <p>{{content.PromotionDescription}}</p>
+            </a>
+          </ion-list>
+        </ion-card>
 </ion-content>

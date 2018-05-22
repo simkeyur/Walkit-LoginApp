@@ -9,11 +9,12 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
-import { SettingsPage } from '../pages/settings/settings';
+import { SettingsPage, SettingsModalPage } from '../pages/settings/settings';
 import { AuthService } from '../providers/auth-service';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'; 
 import { HttpModule } from '@angular/http';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { SettingsProvider } from '../providers/settings/settings';
 import { ExpandableComponent } from '../components/expandable/expandable';
 import { BasicPage as RewardsPage, ModalContentPage } from '../pages/rewards/pages';
@@ -31,11 +32,12 @@ import { BasicPage as RewardsPage, ModalContentPage } from '../pages/rewards/pag
     LoginPage,
     RewardsPage,
     ModalContentPage,
+    SettingsModalPage,
     ExpandableComponent,
     SettingsPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp), BrowserModule, HttpModule, RoundProgressModule
+    IonicModule.forRoot(MyApp), BrowserModule, HttpModule, RoundProgressModule, NgxQRCodeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,6 +48,7 @@ import { BasicPage as RewardsPage, ModalContentPage } from '../pages/rewards/pag
     TabsPage,
     LoginPage,
     RewardsPage,
+    SettingsModalPage,
     ModalContentPage,
     SettingsPage
   ],

@@ -23,9 +23,11 @@
           Rewards
         </ion-title>
       <ion-buttons right>
+          <!--
           <button ion-button clear (click)="logout()">
-              <ion-icon name="power" large></ion-icon>
+              <ion-icon name="power"></ion-icon>
             </button>
+            -->
       </ion-buttons>
     </ion-navbar>
   </ion-header>
@@ -37,7 +39,7 @@
       <a ion-item *ngFor='let content of promoList' (click)="openModal(content.Id)" style="font-weight: bold">
         {{content.Title}}
         <ion-icon name="eye" item-right large ></ion-icon>
-        <p>End Date: {{content.PromotionEndDate}}</p>
+        <p>End Date: {{content.PromotionEndDateString}}</p>
       </a>
     </ion-list>
   </ion-card>

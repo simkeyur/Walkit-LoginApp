@@ -12,7 +12,7 @@ import { SettingsPage } from '../settings/settings';
   templateUrl: 'home.html'
 })
 export class HomePage implements OnInit{
-
+  rootPage:any = LoginPage;
   loading: any;
   isLoggedIn: boolean = false;
   steps: number = 0;
@@ -57,7 +57,11 @@ export class HomePage implements OnInit{
 
     this.settings.getPatientGoal().then((result) => {
       this.data = JSON.stringify(result);
-      this.CurrGoal = parseInt(this.data);
+      if(this.data === null){
+        this.CurrGoal = 1000;
+      }else{
+        this.CurrGoal = parseInt(this.data)
+      }
       this.setPercentage();
     }, (err) => {
       //this.presentToast(err);
@@ -83,8 +87,7 @@ export class HomePage implements OnInit{
   logout() {
     this.authService.doLogout().then((result) => {
       this.loading.dismiss();
-      let nav = this.app.getRootNav();
-      nav.setRoot(LoginPage);
+      this.navCtrl.setRoot(LoginPage);
     }, (err) => {
       this.loading.dismiss();
       let nav = this.app.getRootNav();

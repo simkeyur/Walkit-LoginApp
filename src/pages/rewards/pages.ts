@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsProvider } from '../../providers/settings/settings';
-import { ModalController, Platform, NavParams, ViewController, ToastController, List, App } from 'ionic-angular';
+import { AuthService } from '../../providers/auth-service';
+import { LoginPage } from '../login/login';
+import { ModalController, NavController, Platform, NavParams, ViewController, ToastController, List, App } from 'ionic-angular';
 
 
 @Component({
@@ -10,13 +12,30 @@ export class BasicPage implements OnInit{
   promoList: () => List;
   promoListString: string;
   data: any;
+  loading: any;
 
   constructor(
     public modalCtrl: ModalController, 
     public settings: SettingsProvider, 
     public viewCtrl: ViewController,  
     private toastCtrl: ToastController, 
+    public authService: AuthService,
+    public navCtrl: NavController,
     public app: App) { 
+  }
+
+  logout() {
+    this.authService.doLogout().then((result) => {
+      this.loading.dismiss();
+      localStorage.removeItem('token');
+      location.reload();
+      this.navCtrl.setRoot(LoginPage);
+    }, (err) => {
+      this.loading.dismiss();
+      let nav = this.app.getRootNav();
+      nav.setRoot(LoginPage);
+      this.presentToast(err);
+    });
   }
 
   ngOnInit() {
@@ -28,12 +47,6 @@ export class BasicPage implements OnInit{
     }, (err) => {
       this.presentToast(err);
     });
-
-
-    //this.promoList = this.settings.getAllPromotions();
-    //this.promoList = JSON.parse(localStorage.getItem("CurrentPromotionList"));
-    //this.promoListString = localStorage.getItem("CurrentPromotionList");
-
   }
 
   presentToast(toast_message) {
@@ -126,6 +139,8 @@ export class ModalContentPage {
         this.presentToast(err);
       });
   }
+
+  
 
   presentToast(toast_message) {
     let toast = this.toastCtrl.create({

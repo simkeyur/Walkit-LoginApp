@@ -16,6 +16,7 @@ export class TabsPage {
   tab1Root: any = HomePage;
   tab2Root: any = RewardsPage;
   tab3Root: any = SettingsPage;
+  tab4Root: any = LoginPage;
 
   constructor(public navCtrl: NavController) {
     if(!localStorage.getItem("token")) {
