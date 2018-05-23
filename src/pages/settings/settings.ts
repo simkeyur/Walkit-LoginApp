@@ -33,7 +33,7 @@ export class SettingsPage implements OnInit {
     
     }
  
-  public refreshTokens() {
+  public refreshData() {
     this.settings.getPatientTokens().then((result) => {
       this.data = JSON.stringify(result);
       this.tokens= parseInt(this.data) || 0;

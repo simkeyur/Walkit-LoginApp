@@ -16,6 +16,9 @@
               <ion-icon name="power"></ion-icon>
             </button>
             -->
+            <button ion-button clear item-right (click)="ngOnInit()">
+                <ion-icon name="refresh" large></ion-icon>
+              </button>
       </ion-buttons>
     </ion-navbar>
   </ion-header>
@@ -31,13 +34,9 @@
       </ion-card>
       <ion-card>
         <ion-item>
-          <ion-icon name="cash" item-left large ></ion-icon>
+          <ion-icon md="logo-bitcoin" item-left large ></ion-icon>
           <h2>Available tokens</h2>
           <p>{{tokens}}</p>
-          <button ion-button clear item-right (click)="refreshTokens()">
-            <ion-icon name="refresh" large></ion-icon>
-          </button>
-          
         </ion-item>
       </ion-card>
       
